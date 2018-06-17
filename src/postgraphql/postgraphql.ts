@@ -30,6 +30,7 @@ type PostGraphQLOptions = {
   exportGqlSchemaPath?: string,
   bodySizeLimit?: string,
   pgSettings?: { [key: string]: mixed } | ((req: IncomingMessage) => Promise<{[key: string]: mixed }>),
+  collectionsIgnoredInQuery?: Array<string>,
 }
 
 /**

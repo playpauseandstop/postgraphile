@@ -14,6 +14,8 @@ export type SchemaOptions = {
   // If true then the default mutations for tables (e.g. createMyTable) will
   // not be created
   disableDefaultMutations?: boolean,
+  // Array of collections to be ignored from the query
+  collectionsIgnoredInQuery?: Array<string>,
   // Some hooks to allow extension of the schema. Currently this API is
   // private. Use at your own risk.
   _hooks?: _BuildTokenHooks,
@@ -36,6 +38,7 @@ export default function createGqlSchema (inventory: Inventory, options: SchemaOp
       nodeIdFieldName: options.nodeIdFieldName || 'nodeId',
       dynamicJson: options.dynamicJson || false,
       disableDefaultMutations: options.disableDefaultMutations || false,
+      collectionsIgnoredInQuery: options.collectionsIgnoredInQuery || [],
     },
     _hooks: options._hooks || {},
     _typeOverrides: options._typeOverrides || new Map(),

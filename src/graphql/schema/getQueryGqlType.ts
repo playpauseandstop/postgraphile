@@ -34,6 +34,7 @@ function createGqlQueryType (buildToken: BuildToken): GraphQLObjectType {
         : [],
       inventory
         .getCollections()
+        .filter(collection => options.collectionsIgnoredInQuery.indexOf(collection.name) === -1)
         .map(collection => createCollectionQueryFieldEntries(buildToken, collection))
         .reduce((a, b) => a.concat(b), []),
       [

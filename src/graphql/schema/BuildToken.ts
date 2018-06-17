@@ -29,6 +29,8 @@ interface BuildToken {
     // If true then the default mutations for tables (e.g. createMyTable) will
     // not be created
     readonly disableDefaultMutations: boolean,
+    // Define array of collections need to be ignored in resulted query
+    readonly collectionsIgnoredInQuery: Array<string>,
   },
   // Hooks for adding custom fields/types into our schema.
   readonly _hooks: _BuildTokenHooks,
