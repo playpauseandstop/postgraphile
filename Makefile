@@ -14,5 +14,11 @@ install: .install
 package-lock.json: package.json
 	npm install
 
+release: .install
+	npm publish
+
 run: .install
 	scripts/dev
+
+test: .install
+	scripts/test

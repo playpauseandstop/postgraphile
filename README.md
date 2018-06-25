@@ -1,7 +1,14 @@
 # PostGraphQL
 
+[![Package on npm](https://img.shields.io/npm/v/@playpauseandstop/postgraphql.svg?style=flat)](https://www.npmjs.com/package/@playpauseandstop/postgraphql)
+
 **Fork of PostGraphQL which added ability to include/exclude table by names
 from resulted GraphQL query or mutation.**
+
+By default, PostGrapqhQL exposes all schema tables to GraphQL query/mutation,
+but sometimes you'd like to have only limited set of collections available
+there without dealing with Postgres roles. This allows you to start fast with
+prototyping GraphQL API for your database.
 
 ## To install
 
@@ -16,27 +23,29 @@ from resulted GraphQL query or mutation.**
 
 ### Node
 
-    const {createServer} = require('http')
-    const {postgraphql} = require('@playpauseandstop/postgraphql')
+```js
+const {createServer} = require('http')
+const {postgraphql} = require('@playpauseandstop/postgraphql')
 
-    const server = createServer(postgraphql(db, schema, {
-        collections: {
-            query: {
-                include: ['groups', 'users']
-            },
-            mutation: {
-                exclude: ['groups']
-            },
-        },
-    }))
-    server.listen(port, hostname, () => {
-        console.info('')
-        console.info(`PostGraphQL server listening on ${server.address().port.toString()}`)
-        console.info('')
-        console.info(`  > Database URL: ${db}`)
-        console.info(`  > GraphQL URL: http://${hostname}:${port}/graphql`)
-        console.info('')
-    })
+const server = createServer(postgraphql(db, schema, {
+  collections: {
+    query: {
+      include: ['groups', 'users'],
+    },
+    mutation: {
+      exclude: ['groups'],
+    },
+  },
+}))
+server.listen(port, hostname, () => {
+  console.info('')
+  console.info(`PostGraphQL server listening on ${server.address().port.toString()}`)
+  console.info('')
+  console.info(`  > Database URL: ${db}`)
+  console.info(`  > GraphQL URL: http://${hostname}:${port}/graphql`)
+  console.info('')
+})
+```
 
 ----
 
