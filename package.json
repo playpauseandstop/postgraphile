@@ -1,16 +1,16 @@
 {
-  "name": "postgraphql",
-  "version": "3.5.5",
-  "description": "A GraphQL schema created by reflection over a PostgreSQL schema 🐘",
-  "author": "Caleb Meredith <calebmeredith8@gmail.com>",
+  "name": "@playpauseandstop/postgraphql",
+  "version": "3.6.0-alpha.0",
+  "description": "Fork of PostGraphQL, that allows to exclude/include collections in resulted GraphQL query/mutation.",
+  "author": "Igor Davydenko <iam@igordavydenko.com>",
   "license": "MIT",
-  "homepage": "https://github.com/calebmer/postgraphql#readme",
+  "homepage": "https://github.com/playpauseandstop/postgraphql#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/calebmer/postgraphql.git"
+    "url": "git+https://github.com/playpauseandstop/postgraphql.git"
   },
   "bugs": {
-    "url": "https://github.com/calebmer/postgraphql/issues"
+    "url": "https://github.com/playpauseandstop/postgraphql/issues"
   },
   "keywords": [
     "graphql",
@@ -66,8 +66,8 @@
     "codemirror-graphql": "^0.6.12",
     "connect": "^3.5.0",
     "express": "^4.14.0",
-    "graphql": ">=0.6 <0.12",
     "graphiql": "^0.11.2",
+    "graphql": ">=0.6 <0.12",
     "jest": "^18.1.0",
     "koa": "^2.0.0",
     "nodemon": "^1.11.0",

@@ -1,5 +1,5 @@
 import { GraphQLSchema } from 'graphql'
-import { Inventory } from '../../interface'
+import { CollectionConfig, defaultCollectionConfig, Inventory } from '../../interface'
 import BuildToken, { _BuildTokenHooks, _BuildTokenTypeOverrides } from './BuildToken'
 import getQueryGqlType from './getQueryGqlType'
 import getMutationGqlType from './getMutationGqlType'
@@ -15,7 +15,7 @@ export type SchemaOptions = {
   // not be created
   disableDefaultMutations?: boolean,
   // Array of collections to be ignored from the query
-  collectionsIgnoredInQuery?: Array<string>,
+  collections?: CollectionConfig,
   // Some hooks to allow extension of the schema. Currently this API is
   // private. Use at your own risk.
   _hooks?: _BuildTokenHooks,
@@ -38,7 +38,7 @@ export default function createGqlSchema (inventory: Inventory, options: SchemaOp
       nodeIdFieldName: options.nodeIdFieldName || 'nodeId',
       dynamicJson: options.dynamicJson || false,
       disableDefaultMutations: options.disableDefaultMutations || false,
-      collectionsIgnoredInQuery: options.collectionsIgnoredInQuery || [],
+      collections: options.collections || defaultCollectionConfig,
     },
     _hooks: options._hooks || {},
     _typeOverrides: options._typeOverrides || new Map(),

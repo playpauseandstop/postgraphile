@@ -3,6 +3,7 @@ import { parse as parsePgConnectionString } from 'pg-connection-string'
 import { GraphQLSchema } from 'graphql'
 import { EventEmitter } from 'events'
 import chalk = require('chalk')
+import { CollectionConfig } from '../interface'
 import createPostGraphQLSchema from './schema/createPostGraphQLSchema'
 import createPostGraphQLHttpRequestHandler, { HttpRequestHandler } from './http/createPostGraphQLHttpRequestHandler'
 import exportPostGraphQLSchema from './schema/exportPostGraphQLSchema'
@@ -30,7 +31,7 @@ type PostGraphQLOptions = {
   exportGqlSchemaPath?: string,
   bodySizeLimit?: string,
   pgSettings?: { [key: string]: mixed } | ((req: IncomingMessage) => Promise<{[key: string]: mixed }>),
-  collectionsIgnoredInQuery?: Array<string>,
+  collections?: CollectionConfig,
 }
 
 /**

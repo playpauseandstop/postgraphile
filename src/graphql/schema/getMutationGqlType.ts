@@ -2,6 +2,7 @@ import { GraphQLObjectType, GraphQLFieldConfig } from 'graphql'
 import { buildObject, memoize1 } from '../utils'
 import BuildToken from './BuildToken'
 import createCollectionMutationFieldEntries from './collection/createCollectionMutationFieldEntries'
+import { excludeCollection, includeCollection } from './collection/utils'
 
 /**
  * Gets the mutation type which includes all available mutations for our
@@ -35,6 +36,8 @@ function createMutationGqlType (buildToken: BuildToken): GraphQLObjectType | und
           // for them.
           inventory
             .getCollections()
+            .filter(collection => includeCollection(collection.name, options.collections.mutation.include))
+            .filter(collection => !excludeCollection(collection.name, options.collections.mutation.exclude))
             .map(collection => createCollectionMutationFieldEntries(buildToken, collection))
             .reduce((a, b) => a.concat(b), [])
     ),

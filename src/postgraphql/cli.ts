@@ -6,9 +6,11 @@ import { createServer } from 'http'
 import chalk = require('chalk')
 import program = require('commander')
 import { parse as parsePgConnectionString } from 'pg-connection-string'
+import { CollectionConfig } from '../interface'
 import postgraphql from './postgraphql'
 
 // tslint:disable no-console
+const env: any = {...process.env};
 
 // TODO: Demo Postgres database
 const DEMO_PG_URL = null
@@ -44,6 +46,10 @@ program
   .option('--export-schema-graphql [path]', 'enables exporting the detected schema, in GraphQL schema format, to the given location. The directories must exist already, if the file exists it will be overwritten.')
   .option('--show-error-stack [setting]', 'show JavaScript error stacks in the GraphQL result errors')
   .option('--extended-errors <string>', 'a comma separated list of extended Postgres error fields to display in the GraphQL result. Example: \'hint,detail,errcode\'. Default: none', (option: string) => option.split(',').filter(_ => _))
+  .option('--collections.query.include <string>', 'a comma separated list of tables (collections) to inlcude in resulted GraphQL query. Example: \'groups,users\'. Default: none', (option: string) => option.split(',').filter(_ => _))
+  .option('--collections.query.exclude <string>', 'a comma separated list of tables (collections) to exclude from resulted GraphQL query. Example: \'groups,users\'. Default: none', (option: string) => option.split(',').filter(_ => _))
+  .option('--collections.mutation.include <string>', 'a comma separated list of tables (collections) to inlcude in resulted GraphQL mutation. Example: \'groups,users\'. Default: none', (option: string) => option.split(',').filter(_ => _))
+  .option('--collections.mutation.exclude <string>', 'a comma separated list of tables (collections) to exclude from resulted GraphQL mutation. Example: \'groups,users\'. Default: none', (option: string) => option.split(',').filter(_ => _))
 
 program.on('--help', () => console.log(`
   Get Started:
@@ -87,6 +93,17 @@ const {
 // tslint:disable-next-line no-any
 } = program as any
 
+const collections: CollectionConfig = {
+  query: {
+    include: program['collections.query.include'],
+    exclude: program['collections.query.exclude'],
+  },
+  mutation: {
+    include: program['collections.mutation.include'],
+    exclude: program['collections.mutation.exclude'],
+  },
+}
+
 // Add custom logic for getting the schemas from our CLI. If we are in demo
 // mode, we want to use the `forum_example` schema. Otherwise the `public`
 // schema is what we want.
@@ -100,9 +117,9 @@ const pgConfig = Object.assign(
   // variables or final defaults. Other environment variables should be
   // detected and used by `pg`.
   pgConnectionString || isDemo ? parsePgConnectionString(pgConnectionString || DEMO_PG_URL) : {
-    host: process.env.PGHOST || 'localhost',
-    port: process.env.PGPORT || 5432,
-    database: process.env.PGDATABASE,
+    host: env.PGHOST || 'localhost',
+    port: env.PGPORT || 5432,
+    database: env.PGDATABASE,
   },
   // Add the max pool size to our config.
   { max: maxPoolSize },
@@ -130,6 +147,7 @@ const server = createServer(postgraphql(pgConfig, schemas, {
   exportJsonSchemaPath,
   exportGqlSchemaPath,
   bodySizeLimit,
+  collections,
 }))
 
 // Start our server by listening to a specific port and host name. Also log

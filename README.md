@@ -1,5 +1,45 @@
 # PostGraphQL
 
+**Fork of PostGraphQL which added ability to include/exclude table by names
+from resulted GraphQL query or mutation.**
+
+## To install
+
+    npm install @playpauseandstop/postgraphql
+
+## To use
+
+### Command line
+
+    npx @playpauseandstop/postgraphql -c <connectionUrl> --collections.query.include <tableName1,tableName2,...>
+    npx @playpauseandstop/postgraphql -c <connectionUrl> --collections.mutation.exlclude <tableName1,tableName2,...>
+
+### Node
+
+    const {createServer} = require('http')
+    const {postgraphql} = require('@playpauseandstop/postgraphql')
+
+    const server = createServer(postgraphql(db, schema, {
+        collections: {
+            query: {
+                include: ['groups', 'users']
+            },
+            mutation: {
+                exclude: ['groups']
+            },
+        },
+    }))
+    server.listen(port, hostname, () => {
+        console.info('')
+        console.info(`PostGraphQL server listening on ${server.address().port.toString()}`)
+        console.info('')
+        console.info(`  > Database URL: ${db}`)
+        console.info(`  > GraphQL URL: http://${hostname}:${port}/graphql`)
+        console.info('')
+    })
+
+----
+
 [![Package on npm](https://img.shields.io/npm/v/postgraphql.svg?style=flat)](https://www.npmjs.com/package/postgraphql)
 [![Package on npm](https://img.shields.io/npm/v/postgraphql/next.svg?style=flat)](https://www.npmjs.com/package/postgraphile)
 ![MIT license](https://img.shields.io/npm/l/postgraphql.svg)

@@ -1,5 +1,5 @@
 import { GraphQLOutputType, GraphQLFieldConfig } from 'graphql'
-import { Inventory, Type, ObjectType } from '../../interface'
+import { CollectionConfig, Inventory, Type, ObjectType } from '../../interface'
 
 /**
  * A `BuildToken` is a plain object that gets passed around to all of the
@@ -30,7 +30,7 @@ interface BuildToken {
     // not be created
     readonly disableDefaultMutations: boolean,
     // Define array of collections need to be ignored in resulted query
-    readonly collectionsIgnoredInQuery: Array<string>,
+    readonly collections: CollectionConfig,
   },
   // Hooks for adding custom fields/types into our schema.
   readonly _hooks: _BuildTokenHooks,

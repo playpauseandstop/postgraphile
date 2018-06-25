@@ -1,6 +1,7 @@
 import Inventory from './Inventory'
 import Paginator from './Paginator'
 import Collection from './collection/Collection'
+import CollectionConfig, { defaultCollectionConfig } from './collection/CollectionConfig'
 import CollectionKey from './collection/CollectionKey'
 import Condition, { conditionHelpers } from './collection/Condition'
 import Relation from './collection/Relation'
@@ -27,6 +28,7 @@ export {
   Inventory,
   Paginator,
   Collection,
+  CollectionConfig,
   CollectionKey,
   Condition,
   conditionHelpers,
@@ -49,4 +51,5 @@ export {
   getNamedType,
   getNonNullableType,
   BasicObjectType,
+  defaultCollectionConfig,
 }

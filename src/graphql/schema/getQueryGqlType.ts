@@ -3,6 +3,7 @@ import { buildObject, memoize1 } from '../utils'
 import createNodeFieldEntry from './node/createNodeFieldEntry'
 import getNodeInterfaceType from './node/getNodeInterfaceType'
 import createCollectionQueryFieldEntries from './collection/createCollectionQueryFieldEntries'
+import { excludeCollection, includeCollection } from './collection/utils'
 import BuildToken from './BuildToken'
 
 export const $$isQuery = Symbol('isQuery')
@@ -34,7 +35,8 @@ function createGqlQueryType (buildToken: BuildToken): GraphQLObjectType {
         : [],
       inventory
         .getCollections()
-        .filter(collection => options.collectionsIgnoredInQuery.indexOf(collection.name) === -1)
+        .filter(collection => includeCollection(collection.name, options.collections.query.include))
+        .filter(collection => !excludeCollection(collection.name, options.collections.query.exclude))
         .map(collection => createCollectionQueryFieldEntries(buildToken, collection))
         .reduce((a, b) => a.concat(b), []),
       [

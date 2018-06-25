@@ -1,6 +1,6 @@
 import { Pool, Client, ClientConfig, connect as connectPgClient } from 'pg'
 import { GraphQLSchema, GraphQLOutputType } from 'graphql'
-import { Inventory, Type, ObjectType, getNonNullableType } from '../../interface'
+import { CollectionConfig, Inventory, Type, ObjectType, getNonNullableType } from '../../interface'
 import { introspectPgDatabase, addPgCatalogToInventory } from '../../postgres'
 import { PgCatalog, PgCatalogClass, PgCatalogProcedure } from '../../postgres/introspection'
 import getTypeFromPgType from '../../postgres/inventory/type/getTypeFromPgType'
@@ -26,7 +26,7 @@ export default async function createPostGraphQLSchema (
     jwtSecret?: string,
     jwtPgTypeIdentifier?: string,
     disableDefaultMutations?: boolean,
-    collectionsIgnoredInQuery?: Array<string>,
+    collections?: CollectionConfig,
   } = {},
 ): Promise<GraphQLSchema> {
   // Create our inventory.
@@ -110,7 +110,7 @@ export default async function createPostGraphQLSchema (
     nodeIdFieldName: options.classicIds ? 'id' : 'nodeId',
     dynamicJson: options.dynamicJson,
     disableDefaultMutations: options.disableDefaultMutations,
-    collectionsIgnoredInQuery: options.collectionsIgnoredInQuery,
+    collections: options.collections,
 
     // If we have a JWT Postgres type, let us override the GraphQL output type
     // with our own.
