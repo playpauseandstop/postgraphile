@@ -15,7 +15,7 @@ package-lock.json: package.json
 	npm install
 
 release: .install
-	npm publish
+	npm publish --access=public $(ARGS)
 
 run: .install
 	scripts/dev
