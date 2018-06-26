@@ -1,16 +1,16 @@
 {
   "name": "@playpauseandstop/postgraphql",
-  "version": "3.6.0-alpha.0",
+  "version": "3.6.0",
   "description": "Fork of PostGraphQL, that allows to exclude/include collections in resulted GraphQL query/mutation.",
   "author": "Igor Davydenko <iam@igordavydenko.com>",
   "license": "MIT",
-  "homepage": "https://github.com/playpauseandstop/postgraphql#readme",
+  "homepage": "https://github.com/playpauseandstop/postgraphile#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/playpauseandstop/postgraphql.git"
+    "url": "git+https://github.com/playpauseandstop/postgraphile.git"
   },
   "bugs": {
-    "url": "https://github.com/playpauseandstop/postgraphql/issues"
+    "url": "https://github.com/playpauseandstop/postgraphile/issues"
   },
   "keywords": [
     "graphql",
